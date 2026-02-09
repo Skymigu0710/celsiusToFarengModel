@@ -16,7 +16,7 @@ let modelo;
 
 async function cargarModelo() {
     modelo = await tf.loadLayersModel('modelo_celsius_js/model.json');
-    console.log("Modelo cargado ✅");
+    console.log("Modelo cargado correctamente");
 }
 
 async function predecir() {
