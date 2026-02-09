@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Modelo Celsius → Fahrenheit</title>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <meta charset="UTF-8">
+    <title>Modelo Celsius → Fahrenheit</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<h1>Convertir Celsius a Fahrenheit</h1>
-<input type="number" id="celsius" placeholder="Celsius">
-<button onclick="predecir()">Convertir</button>
-<p id="resultado"></p>
+    <div class="main">
+        <div class="presentation">
+            <p>¡Hola!, soy Cielo, bienvenido(a) a mi Primera Red Neuronal</p>
+        </div>
+        <div class="section">
+            <h1>Convertir de Celsius a Fahrenheit</h1>
+            <input type="number" id="celsius" placeholder="Celsius">
+            <button class="boton" onclick="predecir()">Convertir</button>
+            <p id="resultado"></p>
+        </div>
+    </div>
 
-<script>
-let modelo;
+    <script>
+        let modelo;
 
-async function cargarModelo() {
-    modelo = await tf.loadLayersModel('modelo_celsius_js/model.json');
-    console.log("Modelo cargado correctamente");
-}
+        async function cargarModelo() {
+            modelo = await tf.loadLayersModel('modelo_celsius_js/model.json');
+            console.log("Modelo cargado correctamente");
+        }
 
-async function predecir() {
-    const c = parseFloat(document.getElementById('celsius').value);
-    const tensor = tf.tensor2d([c], [1,1]);
-    const pred = modelo.predict(tensor);
-    pred.array().then(res => {
-        document.getElementById('resultado').innerText = res[0][0].toFixed(2) + " °F";
-    });
-}
+        async function predecir() {
+            const c = parseFloat(document.getElementById('celsius').value);
+            const tensor = tf.tensor2d([c], [1, 1]);
+            const pred = modelo.predict(tensor);
+            pred.array().then(res => {
+                document.getElementById('resultado').innerText = res[0][0].toFixed(2) + " °F";
+            });
+        }
 
-cargarModelo();
-</script>
+        cargarModelo();
+    </script>
+
 </body>
+
 </html>
