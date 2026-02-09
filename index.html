@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Modelo Celsius → Fahrenheit</title>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+<h1>Convertir Celsius a Fahrenheit</h1>
+<input type="number" id="celsius" placeholder="Celsius">
+<button onclick="predecir()">Convertir</button>
+<p id="resultado"></p>
+
+<script>
+let modelo;
+
+async function cargarModelo() {
+    modelo = await tf.loadLayersModel('modelo_celsius_js/model.json');
+    console.log("Modelo cargado ✅");
+}
+
+async function predecir() {
+    const c = parseFloat(document.getElementById('celsius').value);
+    const tensor = tf.tensor2d([c], [1,1]);
+    const pred = modelo.predict(tensor);
+    pred.array().then(res => {
+        document.getElementById('resultado').innerText = res[0][0].toFixed(2) + " °F";
+    });
+}
+
+cargarModelo();
+</script>
+</body>
+</html>
